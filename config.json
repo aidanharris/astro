@@ -30,7 +30,7 @@
     "trackers": "",
     "providers": {
         "kat": {
-            "enabled": true,
+            "enabled": false,
             "config": {
                 "startup": true,
                 "duration": "@hourly",
@@ -38,11 +38,27 @@
             }
         },
         "torrentproject": {
-            "enabled": true,
+            "enabled": false,
             "config": {
                 "startup": true,
                 "duration": "@hourly"
             }
+        },
+        "bitsnoop-hourly": {
+          "enabled": true,
+          "config": {
+            "startup": true,
+            "duration": "@hourly",
+            "verified": true
+          }
+        },
+        "bitsnoop-daily": {
+          "enabled": true,
+          "config": {
+            "startup": true,
+            "duration": "@daily",
+            "verified": true
+          }
         },
          "tpb": {
             "enabled": false

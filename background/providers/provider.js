@@ -71,6 +71,9 @@ class Provider {
             );
             return;
         }
+        if(!size || isNaN(Number(size))) {
+          size = 0;
+        }
         if(!lastmod) {
             lastmod = Date.now();
         }
