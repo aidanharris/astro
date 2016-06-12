@@ -1,5 +1,8 @@
-require('app-module-path').addPath(__dirname + '../../app');
-
+if(!/^win/.test(process.platform)) {
+    require('app-module-path').addPath(__dirname.substring(0, __dirname.lastIndexOf('/')) + '/app');
+} else {
+    require('app-module-path').addPath(__dirname.substring(0, __dirname.lastIndexOf('\\')) + '\\app');
+}
 var path = require('path');
 var nconf = require('nconf');
 var mongoose = require('mongoose');
@@ -10,6 +13,7 @@ nconf.argv().env('__').file({
 });
 
 var log = require(__dirname + '/logging.js');
+log = new log('imports');
 
 if(
     nconf.get('torrents:whitelist:enabled') &&
@@ -34,7 +38,13 @@ for(var provider in nconf.get('providers')) {
     if(provider !== 'provider') {
         if (nconf.get('providers:' + provider + ':enabled')) {
             log.info('Loading provider ' + provider);
-            require(__dirname + '/providers/' + provider);
+            try {
+                require(__dirname + '/providers/' + provider);
+            } catch (e) {
+                log.info('An error occurred loading the ' + provider + ' provider.');
+                log.info('The error is as follows:');
+                log.error(e);
+            }
         }
     } else
     {

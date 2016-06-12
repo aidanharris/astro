@@ -5,6 +5,7 @@ var path = require('path');
 var nconf = require('nconf');
 
 var log = require(__dirname + '/../logging.js');
+log = new log('imports:kat');
 
 var Provider = require(__dirname + '/provider.js');
 
@@ -12,7 +13,8 @@ var interval;
 
 class Kat extends Provider {
     run() {
-        https.get('https://kat.cr/api/get_dump/hourly/?userhash=' + nconf.get('providers:kat:config:apiKey'), function (res) {
+        https.get(nconf.get('providers:kat:config:url') + '/?userhash=' + nconf.get('providers:kat:config:apiKey'), function (res) {
+            // Kat
             // torrent_info_hash|torrent_name|torrent_category|torrent_info_url|torrent_download_url|size|category_id|files_count|seeders|leechers|upload_date|verified
             if (res.headers['content-type'] === 'application/x-gzip') {
                 // pipe the response into the gunzip to decompress
@@ -60,7 +62,7 @@ class Kat extends Provider {
         if (!isNaN(this.duration)) {
             interval = setInterval(this.run, this.duration);
         } else {
-            log.warn('Invalid duration for provider kat');
+            this.log.warn('Invalid duration for provider kat');
         }
     }
 }

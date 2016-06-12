@@ -25,7 +25,7 @@
         }
     },
     "session": {
-        "secret": "asdasdasdasd43jn5kj2n43k"
+        "secret": ""
     },
     "trackers": "",
     "providers": {
@@ -34,14 +34,16 @@
             "config": {
                 "startup": true,
                 "duration": "@hourly",
-                "apiKey": "fknelkn32l4kn23l4kn23lk4n"
+                "apiKey": "fknelkn32l4kn23l4kn23lk4n",
+                "url": "https://kat.cr/api/get_dump/hourly"
             }
         },
         "torrentproject": {
             "enabled": false,
             "config": {
                 "startup": true,
-                "duration": "@hourly"
+                "duration": "@hourly",
+                "url": "https://torrentproject.se/hourlydump.txt.gz"
             }
         },
         "bitsnoop-hourly": {
@@ -60,7 +62,7 @@
             "verified": true
           }
         },
-         "tpb": {
+        "tpb": {
             "enabled": false
         }
     },
@@ -69,6 +71,7 @@
         "key": "random_key"
     },
     "logs": {
-        "location": "./logs/error.log"
+        "provider": "default",
+        "location": "logs/error.log"
     }
 }
